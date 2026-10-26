@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setyawan Portofolio and Profile Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top:#6fc4ea;
+    --sky-bottom:#cdeef8;
+    --grass:#6fa83b;
+    --grass-dark:#4f7a2a;
+    --dirt:#7a5230;
+    --dirt-dark:#4a3220;
+    --panel:#c6c6c6;
+    --panel-dark:#8f8f8f;
+    --wood:#9c6b3e;
+    --wood-dark:#6b4423;
+    --gold:#f6c945;
+    --emerald:#3fce89;
+    --diamond:#5fe1e0;
+    --ink:#3b2e22;
+    --paper:#efe6d4;
+    --redstone:#e04a3f;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'VT323', monospace;
+    font-size:22px;
+    color:var(--ink);
+    background:var(--paper);
+    image-rendering:pixelated;
+    cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><polygon points='2,2 2,20 7,16 10,22 13,20 10,14 18,14' fill='%23f4f4f4' stroke='%232b2321' stroke-width='1.6'/></svg>") 2 2, auto;
+    position:relative;
+    overflow-x:hidden;
+  }
+  a, button, .dot, .hotbar-slot, .social-slot{
+    cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26'><rect x='3' y='9' width='8' height='8' fill='%23f6c945' stroke='%232b2321' stroke-width='1.6'/><polygon points='2,2 2,20 7,16 10,22 13,20 10,14 18,14' fill='%23f4f4f4' stroke='%232b2321' stroke-width='1.6'/></svg>") 2 2, pointer;
+  }
+
+  .bg-anim{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    overflow:hidden;
+    pointer-events:none;
+    background:
+      linear-gradient(#bfe0ea, var(--paper) 55%);
+  }
+  .floater{
+    position:absolute;
+    bottom:-40px;
+    width:16px;height:16px;
+    opacity:.55;
+    animation:floatUp linear infinite;
+  }
+  .floater.grass{background:var(--grass);}
+  .floater.gold{background:var(--gold);}
+  .floater.diamond{background:var(--diamond);}
+  .floater.emerald{background:var(--emerald);}
+  @keyframes floatUp{
+    0%{ transform:translateY(0) rotate(0deg); opacity:.55; }
+    90%{ opacity:.4; }
+    100%{ transform:translateY(-110vh) rotate(90deg); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .floater{animation:none; display:none;}
+    .cloud-move{animation:none !important;}
+  }
+  h1,h2,h3,.pixel-font{
+    font-family:'Press Start 2P', monospace;
+    line-height:1.6;
+  }
+  img,video{max-width:100%;display:block;}
+  a{color:inherit;}
+
+  .mc-panel{
+    background:var(--panel);
+    box-shadow:
+      inset 4px 4px 0 0 rgba(255,255,255,0.6),
+      inset -4px -4px 0 0 rgba(0,0,0,0.35);
+    padding:24px;
+  }
+  .mc-panel-dark{
+    background:var(--dirt);
+    box-shadow:
+      inset 4px 4px 0 0 rgba(255,255,255,0.15),
+      inset -4px -4px 0 0 rgba(0,0,0,0.45);
+    color:var(--paper);
+  }
+  .mc-btn{
+    font-family:'Press Start 2P', monospace;
+    font-size:13px;
+    color:#fff;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.5);
+    background:var(--grass);
+    border:none;
+    padding:14px 20px;
+    cursor:pointer;
+    box-shadow:
+      inset 3px 3px 0 0 rgba(255,255,255,0.45),
+      inset -3px -3px 0 0 rgba(0,0,0,0.4);
+    transition:transform .05s ease;
+  }
+  .mc-btn:hover{filter:brightness(1.1);}
+  .mc-btn:active{
+    transform:translateY(3px);
+    box-shadow:
+      inset -3px -3px 0 0 rgba(255,255,255,0.3),
+      inset 3px 3px 0 0 rgba(0,0,0,0.35);
+  }
+  .mc-btn.secondary{background:var(--wood);}
+  .mc-btn.round{
+    width:52px;height:52px;padding:0;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+
+  section{padding:70px 20px;}
+  .wrap{max-width:1000px;margin:0 auto;}
+
+  .hero{
+    position:relative;
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+    background:linear-gradient(var(--sky-top), var(--sky-bottom) 65%);
+    overflow:hidden;
+  }
+  .cloud{
+    position:absolute;
+    background:#fff;
+    opacity:.9;
+    box-shadow:
+      40px 10px 0 #fff, 80px 0px 0 #fff, -40px 6px 0 #fff;
+    animation:cloudDrift linear infinite;
+  }
+  .cloud1{width:60px;height:24px; top:12%; left:-15%; animation-duration:38s;}
+  .cloud2{width:50px;height:20px; top:20%; left:-15%; animation-duration:52s; animation-delay:-20s;}
+  .cloud3{width:70px;height:26px; top:8%; left:-15%; animation-duration:46s; animation-delay:-8s;}
+  @keyframes cloudDrift{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(135vw); }
+  }
+  .sun{
+    position:absolute;
+    top:10%; right:12%;
+    width:64px;height:64px;
+    background:var(--gold);
+    box-shadow:
+      inset -10px -10px 0 0 rgba(0,0,0,0.12),
+      0 0 0 8px rgba(246,201,69,0.25);
+    animation:sunBob 6s ease-in-out infinite;
+  }
+  @keyframes sunBob{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-10px); }
+  }
+
+  .ground-strip{
+    position:absolute;
+    bottom:0;left:0;right:0;
+    height:120px;
+    background:
+      repeating-linear-gradient(90deg, var(--grass) 0 40px, var(--grass-dark) 40px 44px);
+    border-top:8px solid var(--grass-dark);
+  }
+  .ground-strip::after{
+    content:"";
+    position:absolute;
+    top:44px;left:0;right:0;bottom:0;
+    background:repeating-linear-gradient(90deg, var(--dirt) 0 40px, var(--dirt-dark) 40px 44px);
+  }
+
+  .hero h1{
+    font-size:clamp(22px,5vw,42px);
+    color:#fff;
+    text-shadow:4px 4px 0 var(--grass-dark);
+    margin:0 0 20px;
+  }
+  .hero p{
+    font-size:26px;
+    max-width:560px;
+    margin:0 auto 30px;
+  }
+
+  .hotbar{
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:50;
+    display:flex;
+    gap:6px;
+    background:rgba(20,16,12,0.55);
+    padding:8px;
+    border-radius:4px;
+  }
+  .hotbar-slot{
+    position:relative;
+    width:56px;height:56px;
+    background:var(--panel);
+    box-shadow:
+      inset 4px 4px 0 0 rgba(255,255,255,0.6),
+      inset -4px -4px 0 0 rgba(0,0,0,0.4);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    color:var(--ink);
+    font-family:'Press Start 2P', monospace;
+  }
+  .hotbar-slot .hb-icon{width:22px;height:22px;margin-bottom:4px;}
+  .hotbar-slot .hb-key{
+    position:absolute; top:2px; left:4px;
+    font-size:9px; color:#fff;
+    text-shadow:1px 1px 0 #000;
+  }
+  .hotbar-slot .hb-label{
+    font-size:7px;
+    text-align:center;
+    line-height:1.2;
+  }
+  .hotbar-slot.active{
+    box-shadow:
+      inset 4px 4px 0 0 rgba(0,0,0,0.4),
+      inset -4px -4px 0 0 rgba(255,255,255,0.5),
+      0 0 0 3px var(--gold);
+  }
+  @media (max-width:640px){
+    .hotbar{ gap:4px; padding:6px; bottom:8px; }
+    .hotbar-slot{ width:38px; height:38px; }
+    .hotbar-slot .hb-label{ display:none; }
+    .hotbar-slot .hb-icon{ width:18px;height:18px; }
+  }
+
+  .tos-book{
+    max-width:860px;
+    margin:0 auto;
+    background:var(--paper);
+    border:8px solid var(--wood-dark);
+    box-shadow:
+      inset 0 0 0 3px #c9b68a,
+      inset 5px 5px 0 3px rgba(255,255,255,0.35),
+      6px 6px 0 0 rgba(0,0,0,0.3);
+  }
+  .tos-head{
+    background:var(--wood-dark);
+    color:var(--gold);
+    text-align:center;
+    padding:14px 12px 12px;
+  }
+  .tos-head span{
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    line-height:1.6;
+    display:block;
+  }
+  .tos-head small{
+    font-family:'VT323', monospace;
+    font-size:20px;
+    color:var(--paper);
+    opacity:.85;
+  }
+  .tos-table{ width:100%; border-collapse:collapse; }
+  .tos-table thead th{
+    font-family:'Press Start 2P', monospace;
+    font-size:10px;
+    text-align:left;
+    padding:12px 14px;
+    background:#d9c79b;
+    color:var(--dirt-dark);
+    border-bottom:4px solid var(--wood-dark);
+  }
+  .tos-table tbody tr{ border-bottom:3px dashed rgba(107,68,35,0.35); }
+  .tos-table tbody tr:nth-child(even){ background:rgba(107,68,35,0.07); }
+  .tos-table tbody tr:last-child{ border-bottom:none; }
+  .tos-table td, .tos-table tbody th{ padding:14px; vertical-align:top; text-align:left; }
+  .tos-table td:first-child{ width:64px; }
+  .tos-table tbody th{
+    font-family:'Press Start 2P', monospace;
+    font-size:11px;
+    line-height:1.6;
+    color:var(--dirt-dark);
+    width:190px;
+  }
+  .tos-table td:last-child{ font-size:22px; line-height:1.4; }
+  .tos-ore{
+    display:flex; align-items:center; justify-content:center;
+    width:40px; height:40px;
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    color:var(--ink);
+    box-shadow:
+      inset 4px 4px 0 0 rgba(255,255,255,0.35),
+      inset -4px -4px 0 0 rgba(0,0,0,0.3);
+  }
+  .tos-ore.gold{ background:var(--gold); }
+  .tos-ore.redstone{ background:var(--redstone); color:#fff; }
+  .tos-ore.diamond{ background:var(--diamond); }
+  .tos-ore.emerald{ background:var(--emerald); }
+  .tos-ore.lapis{ background:#3b5bdb; color:#fff; }
+  .tos-ore.iron{ background:#d8d8d8; }
+  .tos-ore.coal{ background:#3a3a3a; color:#fff; }
+  .tos-ore.amethyst{ background:#8a5cf6; color:#fff; }
+  .tos-sign{
+    background:var(--wood);
+    color:var(--paper);
+    text-align:center;
+    padding:14px 16px;
+    font-size:22px;
+    box-shadow:inset 0 4px 0 0 rgba(0,0,0,0.25);
+  }
+  .tos-sign b{ font-family:'Press Start 2P', monospace; font-size:11px; color:var(--gold); font-weight:normal; display:block; margin-bottom:6px; }
+  @media (max-width:640px){
+    .tos-table thead{ display:none; }
+    .tos-table, .tos-table tbody, .tos-table tr{ display:block; }
+    .tos-table tr{ display:grid; grid-template-columns:52px 1fr; column-gap:10px; padding:12px 10px; }
+    .tos-table td, .tos-table tbody th{ padding:2px 0; width:auto; }
+    .tos-table td:first-child{ grid-row:1 / span 2; width:auto; }
+    .tos-table tbody th, .tos-table td:last-child{ grid-column:2; }
+    .tos-table td:last-child{ font-size:20px; }
+    .tos-table tr{ grid-template-columns:46px 1fr; }
+  }
+
+  .klien-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:26px;
+  }
+  .klien-card{
+    width:120px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform .08s ease;
+  }
+  .klien-card:hover{ transform:translateY(-4px); }
+  .klien-photo{
+    position:relative;
+    width:100px;height:100px;
+    background:
+      repeating-conic-gradient(var(--panel) 0% 25%, var(--panel-dark) 0% 50%) 50% / 24px 24px;
+    box-shadow:
+      inset 5px 5px 0 0 rgba(255,255,255,0.5),
+      inset -5px -5px 0 0 rgba(0,0,0,0.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .klien-photo img{width:100%;height:100%;object-fit:cover;}
+  .klien-photo .icon{width:32px;height:32px;background:var(--emerald);box-shadow:inset -5px -5px 0 0 rgba(0,0,0,0.25);}
+  .klien-photo:has(img) .icon{ display:none; }
+  .klien-photo .yt-badge{
+    position:absolute;
+    bottom:5px; right:5px;
+    width:24px;height:17px;
+    background:var(--redstone);
+    box-shadow:inset -3px -3px 0 0 rgba(0,0,0,0.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .klien-photo .yt-badge::before{
+    content:"";
+    border-style:solid;
+    border-width:5px 0 5px 8px;
+    border-color:transparent transparent transparent #fff;
+  }
+  .klien-name{
+    font-family:'Press Start 2P', monospace;
+    font-size:11px;
+    text-align:center;
+    line-height:1.4;
+  }
+
+  .more-section{ padding-top:10px; padding-bottom:10px; }
+  .more-links{ text-align:center; }
+  .more-links .more-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:13px;
+    line-height:1.7;
+    color:var(--dirt-dark);
+    margin:0 0 20px;
+  }
+  .more-links .btn-row{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:14px;
+  }
+  .link-btn{ display:inline-block; text-decoration:none; font-size:12px; line-height:1.5; }
+  .link-btn.blue{ background:#3b82c4; }
+  .link-btn.wood{ background:var(--wood); }
+
+  .social-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+  }
+  .social-slot{
+    width:150px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform .08s ease;
+  }
+  .social-slot:hover{ transform:translateY(-4px); }
+  .social-slot .slot-box{
+    width:78px;height:78px;
+    background:var(--panel);
+    box-shadow:
+      inset 5px 5px 0 0 rgba(255,255,255,0.6),
+      inset -5px -5px 0 0 rgba(0,0,0,0.35);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .social-slot .slot-box .sicon{
+    width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:inset -4px -4px 0 0 rgba(0,0,0,0.3), inset 3px 3px 0 0 rgba(255,255,255,0.25);
+  }
+  .social-slot .slot-box .sicon svg{width:44px;height:44px;display:block;}
+  .social-slot .ig{background:#d6478c;}
+  .social-slot .tt{background:#2b2321;}
+  .social-slot .yt{background:#e04a3f;}
+  .social-slot .wa{background:#3fce89;}
+  .social-slot span.name{
+    font-family:'Press Start 2P', monospace;
+    font-size:11px;
+    text-align:center;
+  }
+
+  .section-title{
+    font-size:20px;
+    text-align:center;
+    margin:0 0 40px;
+    color:var(--dirt-dark);
+  }
+
+  .profil-grid{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:30px;
+    align-items:center;
+  }
+  .avatar-block{
+    width:180px;height:180px;
+    margin:0 auto;
+    background:
+      linear-gradient(var(--grass) 0 40%, #caa27a 40% 100%);
+    box-shadow:
+      inset 8px 8px 0 0 rgba(255,255,255,0.35),
+      inset -8px -8px 0 0 rgba(0,0,0,0.4);
+    position:relative;
+    overflow:hidden;
+  }
+  .avatar-block img{
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .avatar-block.no-photo::before{
+    content:"";
+    position:absolute; top:55%; left:20%;
+    width:18px;height:14px; background:#2b2321;
+    box-shadow:60px 0 0 #2b2321;
+  }
+  .avatar-block:has(img)::before{ content:none; }
+  .profil-text h2{font-size:20px;margin-top:0;}
+  .profil-text p{font-size:24px;line-height:1.5;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .tag{
+    font-family:'Press Start 2P', monospace;
+    font-size:11px;
+    background:var(--gold);
+    padding:8px 10px;
+    box-shadow:inset -3px -3px 0 0 rgba(0,0,0,0.25);
+  }
+
+  @media (max-width:640px){
+    .profil-grid{grid-template-columns:1fr;text-align:center;}
+  }
+
+  .dialog-box{
+    max-width:900px;
+    margin:0 auto;
+    position:relative;
+    padding:26px;
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:26px;
+    align-items:start;
+  }
+  .tokoh-photo{
+    width:100%;
+    max-width:220px;
+    aspect-ratio:1/1;
+    background:
+      repeating-conic-gradient(var(--panel) 0% 25%, var(--panel-dark) 0% 50%) 50% / 26px 26px;
+    box-shadow:
+      inset 6px 6px 0 0 rgba(255,255,255,0.5),
+      inset -6px -6px 0 0 rgba(0,0,0,0.35);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    color:var(--dirt-dark);
+    text-align:center;
+    overflow:hidden;
+  }
+  .tokoh-photo img{width:100%;height:100%;object-fit:cover;}
+  .tokoh-photo .icon{width:44px;height:44px;background:var(--emerald);box-shadow:inset -6px -6px 0 0 rgba(0,0,0,0.25);}
+  .tokoh-photo span{font-family:'Press Start 2P',monospace;font-size:11px;padding:0 8px;}
+  .tokoh-photo:has(img) .icon,
+  .tokoh-photo:has(img) span{ display:none; }
+  .dialog-text .who{
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    color:var(--gold);
+    margin-bottom:14px;
+    display:block;
+  }
+  .dialog-text p{font-size:24px;line-height:1.6;margin:0;}
+  .tokoh-section{background:var(--dirt-dark);}
+  .tokoh-section .section-title{color:var(--paper);}
+  @media (max-width:640px){
+    .dialog-box{grid-template-columns:1fr; justify-items:center;}
+    .tokoh-photo{max-width:220px;}
+  }
+
+  .sw-chest{
+    max-width:860px;
+    margin:0 auto;
+    background:var(--panel);
+    box-shadow:
+      inset 4px 4px 0 0 rgba(255,255,255,0.6),
+      inset -4px -4px 0 0 rgba(0,0,0,0.35),
+      6px 6px 0 0 rgba(0,0,0,0.25);
+    padding:20px;
+  }
+  .sw-chest .sw-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:12px;
+    color:#3f3f3f;
+    margin:0 0 14px 4px;
+  }
+  .sw-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+  }
+  @media (max-width:640px){ .sw-grid{ grid-template-columns:repeat(2,1fr); } }
+  .sw-slot{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    background:#8b8b8b;
+    box-shadow:
+      inset 4px 4px 0 0 rgba(0,0,0,0.45),
+      inset -4px -4px 0 0 rgba(255,255,255,0.7);
+    min-width:0;
+  }
+  .sw-icon{
+    flex-shrink:0;
+    width:46px;height:46px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    color:#fff;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.45);
+    box-shadow:
+      inset 4px 4px 0 0 rgba(255,255,255,0.35),
+      inset -4px -4px 0 0 rgba(0,0,0,0.35);
+  }
+  .sw-text{ min-width:0; }
+  .sw-name{
+    font-family:'Press Start 2P', monospace;
+    font-size:10px;
+    line-height:1.5;
+    color:#fff;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.45);
+    display:block;
+  }
+  .sw-role{
+    font-size:19px;
+    line-height:1.1;
+    color:#f1f1f1;
+    text-shadow:1px 1px 0 rgba(0,0,0,0.4);
+    display:block;
+    margin-top:3px;
+  }
+
+  .paket-toggle{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-bottom:32px;
+  }
+  .toggle-btn{ opacity:.75; }
+  .toggle-btn.active{
+    opacity:1;
+    box-shadow:
+      inset -3px -3px 0 0 rgba(255,255,255,0.45),
+      inset 3px 3px 0 0 rgba(0,0,0,0.4),
+      0 0 0 3px var(--gold);
+  }
+  .paket-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+    max-width:640px;
+    margin:0 auto;
+  }
+  @media (max-width:640px){ .paket-grid{grid-template-columns:1fr;} }
+  .paket-card{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .paket-card .ore{
+    width:44px;height:44px;
+    margin:0 auto;
+    box-shadow:inset -5px -5px 0 0 rgba(0,0,0,0.3);
+  }
+  .ore.kayu{background:var(--wood);}
+  .ore.besi{background:#d8d8d8;}
+  .ore.berlian{background:var(--diamond);}
+  .paket-card h3{font-size:16px;text-align:center;margin:0;}
+  .paket-price{
+    font-family:'Press Start 2P', monospace;
+    font-size:18px;
+    text-align:center;
+    color:var(--dirt-dark);
+  }
+  .paket-list{
+    list-style:none;
+    margin:0;padding:0;
+    font-size:22px;
+    flex:1;
+  }
+  .paket-list li{
+    padding:8px 0 8px 28px;
+    position:relative;
+    border-bottom:2px dashed rgba(0,0,0,0.15);
+  }
+  .paket-list li::before{
+    content:"◆";
+    position:absolute;left:0;top:8px;
+    color:var(--emerald);
+  }
+
+  footer{
+    text-align:center;
+    padding:40px 20px 110px;
+    background:var(--dirt-dark);
+    color:var(--paper);
+    font-size:20px;
+  }
+  footer .pixel-font{font-size:12px;display:block;margin-bottom:10px;}
+  footer .copyright{font-size:16px;opacity:.7;margin:16px 0 0;}
+  .contact-info{
+    margin:44px auto 0;
+    padding:16px 20px;
+    max-width:560px;
+    text-align:center;
+    background:var(--dirt);
+    color:var(--paper);
+    box-shadow:
+      inset 4px 4px 0 0 rgba(255,255,255,0.15),
+      inset -4px -4px 0 0 rgba(0,0,0,0.45);
+    font-size:24px;
+    line-height:1.6;
+  }
+  .contact-info .contact-label{
+    font-family:'Press Start 2P', monospace;
+    font-size:11px;
+    color:var(--gold);
+    display:block;
+    margin-bottom:6px;
+  }
+  .contact-info a{ color:var(--paper); text-decoration:underline; word-break:break-all; }
+  .contact-info a:hover{ color:var(--gold); }
+
+  .mc-toast{
+    position:fixed;
+    top:18px; left:18px;
+    z-index:80;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:270px;
+    max-width:88vw;
+    background:linear-gradient(#1c1c1c,#101010);
+    border:3px solid #000;
+    box-shadow:
+      inset 2px 2px 0 0 rgba(255,255,255,0.12),
+      inset -2px -2px 0 0 rgba(0,0,0,0.6),
+      0 0 0 2px #4a4a4a;
+    padding:10px 12px;
+    animation:toastIn .5s ease;
+  }
+  @keyframes toastIn{
+    from{ transform:translateX(-120%); opacity:0; }
+    to{ transform:translateX(0); opacity:1; }
+  }
+  .toast-icon{
+    flex-shrink:0;
+    width:42px;height:42px;
+    background:var(--gold);
+    box-shadow:inset -5px -5px 0 0 rgba(0,0,0,0.3);
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+  }
+  .toast-body{display:flex;flex-direction:column;gap:6px;min-width:0;}
+  .toast-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .minimize-btn{
+    flex-shrink:0;
+    width:20px;height:20px;
+    line-height:16px;
+    background:var(--panel-dark);
+    color:#fff;
+    border:none;
+    font-family:'Press Start 2P', monospace;
+    font-size:12px;
+    box-shadow:inset -3px -3px 0 0 rgba(0,0,0,0.35);
+    cursor:pointer;
+  }
+  .minimize-btn:hover{ filter:brightness(1.2); }
+  .toast-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:9px;
+    color:var(--gold);
+    letter-spacing:.5px;
+  }
+  .toast-song{
+    color:var(--paper);
+    font-size:19px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:220px;
+  }
+  .toast-controls{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .toast-controls .mc-btn.round{
+    width:32px;height:32px;
+    font-size:12px;
+  }
+  .toast-controls input[type="range"]{
+    -webkit-appearance:none;
+    width:100px;
+    height:10px;
+    background:var(--panel-dark);
+    box-shadow:inset -2px -2px 0 0 rgba(0,0,0,0.4);
+    outline:none;
+  }
+  .toast-controls input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:14px;height:16px;
+    background:var(--gold);
+    box-shadow:inset -3px -3px 0 0 rgba(0,0,0,0.3);
+    cursor:pointer;
+  }
+  .toast-controls input[type="range"]::-moz-range-thumb{
+    width:14px;height:16px;border:none;
+    background:var(--gold);
+    box-shadow:inset -3px -3px 0 0 rgba(0,0,0,0.3);
+    cursor:pointer;
+  }
+  .mc-toast.collapsed{ min-width:0; gap:0; }
+  .mc-toast.collapsed .toast-body{ display:none; }
+  @media (max-width:640px){
+    .mc-toast{ top:10px; left:10px; min-width:0; }
+    .toast-song{ max-width:38vw; }
+    .toast-controls input[type="range"]{ width:60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mc-toast" id="musicToast">
+  <button class="toast-icon" id="toastToggle" aria-label="Buka pemutar musik" title="Buka pemutar musik">♪</button>
+  <div class="toast-body" id="toastBody">
+    <div class="toast-head">
+      <span class="toast-title">WEBSITE BGM</span>
+      <button class="minimize-btn" id="minimizeBtn" aria-label="Perkecil pemutar musik" title="Perkecil">–</button>
+    </div>
+    <span class="toast-song" id="songName">Cover By Keicyla Icelin</span>
+    <div class="toast-controls">
+      <button class="mc-btn round" id="playPauseBtn" aria-label="Putar atau jeda musik">▶</button>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" aria-label="Volume musik">
+    </div>
+  </div>
+</div>
+<audio id="bgMusic" loop preload="none">
+  <source src="cover by keyla.wav" type="audio/mpeg">
+</audio>
+
+<div class="bg-anim" aria-hidden="true">
+  <div class="floater grass" style="left:6%; animation-duration:14s; animation-delay:-2s;"></div>
+  <div class="floater gold" style="left:18%; animation-duration:18s; animation-delay:-6s;"></div>
+  <div class="floater diamond" style="left:32%; animation-duration:16s; animation-delay:-1s;"></div>
+  <div class="floater emerald" style="left:47%; animation-duration:20s; animation-delay:-9s;"></div>
+  <div class="floater grass" style="left:61%; animation-duration:15s; animation-delay:-4s;"></div>
+  <div class="floater gold" style="left:74%; animation-duration:19s; animation-delay:-11s;"></div>
+  <div class="floater diamond" style="left:86%; animation-duration:17s; animation-delay:-7s;"></div>
+  <div class="floater emerald" style="left:94%; animation-duration:21s; animation-delay:-3s;"></div>
+</div>
+
+<nav class="hotbar" aria-label="Section navigation">
+  <a class="hotbar-slot" data-target="profil" href="#profil"><span class="hb-key">1</span><div class="hb-icon" style="background:var(--grass);"></div><span class="hb-label">Profile</span></a>
+  <a class="hotbar-slot" data-target="tokoh" href="#tokoh"><span class="hb-key">2</span><div class="hb-icon" style="background:var(--wood);"></div><span class="hb-label">About</span></a>
+  <a class="hotbar-slot" data-target="software" href="#software"><span class="hb-key">3</span><div class="hb-icon" style="background:var(--diamond);"></div><span class="hb-label">Software</span></a>
+  <a class="hotbar-slot" data-target="paket" href="#paket"><span class="hb-key">4</span><div class="hb-icon" style="background:var(--gold);"></div><span class="hb-label">Pricing</span></a>
+  <a class="hotbar-slot" data-target="tos" href="#tos"><span class="hb-key">5</span><div class="hb-icon" style="background:#d8c28a;"></div><span class="hb-label">TOS</span></a>
+  <a class="hotbar-slot" data-target="klien" href="#klien"><span class="hb-key">6</span><div class="hb-icon" style="background:var(--redstone);"></div><span class="hb-label">Clients</span></a>
+  <a class="hotbar-slot" data-target="sosial" href="#sosial"><span class="hb-key">7</span><div class="hb-icon" style="background:#8a5cf6;"></div><span class="hb-label">Social</span></a>
+</nav>
+
+<header class="hero">
+  <div class="sun"></div>
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="cloud cloud3"></div>
+  <h1>RENDERIN MINECRAFT</h1>
+  <p>Welcome to my portfolio website, also known as my commission exploration space. &amp; If you are looking for custom commissions, you’ve come to the right place.</p>
+  <a href="#profil" class="mc-btn">Come explore with me ▾</a>
+  <div class="ground-strip"></div>
+</header>
+
+<section id="profil">
+  <div class="wrap">
+    <h2 class="section-title">// PROFILE</h2>
+    <div class="mc-panel profil-grid">
+      <div class="avatar-block">
+        <img src="profile setyawan.jpg" alt="Nama Kamu" aria-hidden="true">
+      </div>
+      <div class="profil-text">
+        <h2>Setyawan</h2>
+        <p>A Mine-imator animator with over 5 years of experience in creating Minecraft renders and animations. I create various types of artwork, including content visuals, thumbnails, wallpapers, profile pictures, and fan art based on your favorite characters. I enjoy bringing ideas and imagination to life through creative animations and unique visuals. I was born on March 16 and currently live in Bandung, Indonesia. Outside of my creative journey, I’m also grateful to have someone special in my life, my girlfriend, Keicyla Icelin, who always supports me.</p>
+        <div class="tag-row">
+          <span class="tag">EDITOR</span>
+          <span class="tag">ANIMATOR</span>
+          <span class="tag">STREAMER</span>
+          <span class="tag">CONTENT CREATOR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tokoh" class="tokoh-section">
+  <div class="wrap">
+    <h2 class="section-title">// ABOUT STORE</h2>
+    <div class="mc-panel-dark dialog-box">
+      <div class="tokoh-photo">
+        <div class="icon"></div>
+        <img src="Renderin_Logo.png" alt="Renderin Logo">
+      </div>
+      <div class="dialog-text">
+        <span class="who">RENDERIN MINECRAFT</span>
+        <p>Hi everyone! Welcome to Renderin, where we provide a variety of creative services. First, we offer Minecraft renders. You can request anything you want, from cute and simple styles to epic and cinematic scenes, based on your ideas. Second, we create Minecraft animations, ranging from basic animations to intense fighting scenes. Third, we provide video clip editing services to help bring your content to life. Explore our services and let us create something amazing for you!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="software">
+  <div class="wrap">
+    <h2 class="section-title">// SOFTWARE I USE</h2>
+    <div class="sw-chest">
+      <p class="sw-title">SOFTWARE INVENTORY</p>
+      <div class="sw-grid">
+        <div class="sw-slot">
+          <div class="sw-icon" style="background:#e8731a;">FL</div>
+          <div class="sw-text"><span class="sw-name">Flimora</span><span class="sw-role">Video Editing &amp; Sound Effects</span></div>
+        </div>
+        <div class="sw-slot">
+          <div class="sw-icon" style="background:#4a9d3a;">Mi</div>
+          <div class="sw-text"><span class="sw-name">Mine-imator</span><span class="sw-role">Minecraft animation</span></div>
+        </div>
+        <div class="sw-slot">
+          <div class="sw-icon" style="background:#1f86d6;">Ps</div>
+          <div class="sw-text"><span class="sw-name">Photoshop</span><span class="sw-role">Desain Editing</span></div>
+        </div>
+        <div class="sw-slot">
+          <div class="sw-icon" style="background:#7a5cd6;">BB</div>
+          <div class="sw-text"><span class="sw-name">Blockbench</span><span class="sw-role">3D Modeling &amp; Texturing &amp; Skin</span></div>
+        </div>
+        <div class="sw-slot">
+          <div class="sw-icon" style="background:#5b3fc4;">CC</div>
+          <div class="sw-text"><span class="sw-name">CapCut</span><span class="sw-role">Video editing &amp; Sound Effects</span></div>
+        </div>
+        <div class="sw-slot">
+          <div class="sw-icon" style="background:#d6478c;">CV</div>
+          <div class="sw-text"><span class="sw-name">Canca</span><span class="sw-role">Desain Editing</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="more-section">
+  <div class="wrap">
+    <div class="more-links">
+      <p class="more-title">Portofolio &amp; Queue status</p>
+      <div class="btn-row">
+        <a class="mc-btn link-btn" href="https://fori.io/tiky" target="_blank" rel="noopener">1. Portofolio</a>
+        <a class="mc-btn link-btn blue" href="https://trello.com/b/s27GvDf1" target="_blank" rel="noopener">2. View Queue Status</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="paket">
+  <div class="wrap">
+    <h2 class="section-title">// COMMISSION</h2>
+    <div class="paket-toggle">
+      <button class="mc-btn toggle-btn active" data-region="local">LOCAL COMMISSION</button>
+      <button class="mc-btn secondary toggle-btn" data-region="international">INTERNATIONAL COMMISSION</button>
+    </div>
+
+    <div class="paket-grid" data-panel="local">
+      <div class="mc-panel paket-card">
+        <div class="ore kayu"></div>
+        <h3>Render Minecraft Paket Hemat</h3>
+        <div class="paket-price">Rp 10.000</div>
+        <ul class="paket-list">
+          <li>3x revisi</li>
+          <li>Pengerjaan 1 - 3 Hari (Tergantung antrian)</li>
+          <li>1 Karakter</li>
+          <li>Tanpa Background</li>
+          <li>Format Png/Jpg</li>
+          <li>Add on: Karakter Tambahan (Rp 6.000 Per Karakter)</li>
+          <li>Add on: Weapon/Aksesoris, Revisi tambahan</li>
+          <li>Untuk Add on bisa langsung hubungi saya untuk harga</li>
+        </ul>
+        <button class="mc-btn secondary" onclick="window.open('https://discord.com/invite/cGsgQUtDBS', '_blank')">Pilih Paket</button>
+
+        </div>
+       <div class="mc-panel paket-card">
+        <div class="ore kayu"></div>
+        <h3>Render Minecraft Paket Premium</h3>
+        <div class="paket-price">Rp 15.000</div>
+        <ul class="paket-list">
+          <li>3x revisi</li>
+          <li>Pengerjaan 1 - 3 Hari (Tergantung antrian)</li>
+          <li>1 Karakter</li>
+          <li>Dengan Background PNG</li>
+          <li>Format Png/Jpg</li>
+          <li>Add on: World backgrounds (Rp 10.000)</li>
+          <li>Add on: Karakter Tambahan (Rp 6.000 Per Karakter)</li>
+          <li>Add on: Weapon/Aksesoris, Revisi tambahan</li>
+          <li>Untuk Add on bisa langsung hubungi saya untuk harga</li>
+        </ul>
+        <button class="mc-btn secondary" onclick="window.open('https://discord.com/invite/cGsgQUtDBS', '_blank')">Pilih Paket</button>
+      </div>
+
+      <div class="mc-panel paket-card">
+        <div class="ore berlian"></div>
+        <h3>Minecraft Animation Basic</h3>
+        <div class="paket-price">Rp 8.500</div>
+        <ul class="paket-list">
+          <li>2x revisi</li>
+          <li>Ex: Sound Effect</li>
+          <li>Harga termasuk dalam perdetik</li>
+          <li>Pengerjaan 1 - 2 Minggu (Tergantung antrian dan kesulitan)</li>
+          <li>Add on: Revisi tambahan (Rp 10.000 Per revisi)</li>
+          <li>Add on: Hair Animation (Rp 8.000 Per detik)</li>
+          <li>Add on: BGM Musik (Rp 5.000)</li>
+          <li>Add on: Sound Effect (Rp 10.000 Per menit)</li>
+          <li>Khusus untuk kamu yang pengen bikin animasi dialog! Animasi simple tapi tetep elegan :3</li>
+          <li>Untuk Add on bisa langsung hubungi saya untuk harga</li>
+        </ul>
+        <button class="mc-btn secondary" onclick="window.open('https://discord.gg/cGsgQUtDBS', '_blank')">Pilih Paket</button>
+      </div>
+
+     <div class="mc-panel paket-card">
+        <div class="ore berlian"></div>
+        <h3>Minecraft Animation Fight</h3>
+        <div class="paket-price">Rp 10.000</div>
+        <ul class="paket-list">
+          <li>2x revisi</li>
+          <li>Harga termasuk dalam perdetik</li>
+          <li>Ex: Sound Effect</li>
+          <li>Pengerjaan 14 - 18 Hari (Tergantung antrian dan kesulitan)</li>
+          <li>Add on: Revisi tambahan (Rp 10.000 Per revisi)</li>
+          <li>Add on: Hair Animation (Rp 9.000 Per detik)</li>
+          <li>Add on: BGM Musik (Rp 5.000)</li>
+          <li>Add on: Sound Effect (Rp 10.000 Per menit)</li>
+          <li>Khusus untuk kamu yang pengen bikin animasi fight! Animasi dengan adegan action dengan style khas renderin!</li>
+          <li>Untuk Add on bisa langsung hubungi saya untuk harga</li>
+        </ul>
+        <button class="mc-btn secondary" onclick="window.open('https://discord.gg/cGsgQUtDBS', '_blank')">Pilih Paket</button>
+      </div>
+    </div>
+
+    <div class="paket-grid" data-panel="international" style="display:none;">
+      <div class="mc-panel paket-card">
+        <div class="ore kayu"></div>
+        <h3>Render Standra Pack</h3>
+        <div class="paket-price">$25</div>
+        <ul class="paket-list">
+          <li>1 revision</li>
+          <li>Standard size</li>
+          <li>2–3 days delivery</li>
+          <li>Digital format</li>
+        </ul>
+        <button class="mc-btn secondary">Choose Pack</button>
+
+      </div>
+        <div class="mc-panel paket-card">
+        <div class="ore kayu"></div>
+        <h3>Render Premium Pack</h3>
+        <div class="paket-price">$25</div>
+        <ul class="paket-list">
+          <li>1 revision</li>
+          <li>Standard size</li>
+          <li>2–3 days delivery</li>
+          <li>Digital format</li>
+        </ul>
+        <button class="mc-btn secondary">Choose Pack</button>
+
+      </div>
+      <div class="mc-panel paket-card">
+        <div class="ore berlian"></div>
+        <h3>Animasion Basic</h3>
+        <div class="paket-price">$65</div>
+        <ul class="paket-list">
+          <li>Unlimited revisions</li>
+          <li>Direct consultation</li>
+          <li>1 day delivery</li>
+          <li>All formats + source file</li>
+        </ul>
+        <button class="mc-btn secondary">Choose Pack</button>
+
+      </div>
+      <div class="mc-panel paket-card">
+        <div class="ore berlian"></div>
+        <h3>Animasion Fight</h3>
+        <div class="paket-price">$65</div>
+        <ul class="paket-list">
+          <li>Unlimited revisions</li>
+          <li>Direct consultation</li>
+          <li>1 day delivery</li>
+          <li>All formats + source file</li>
+        </ul>
+        <button class="mc-btn secondary">Choose Pack</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tos">
+  <div class="wrap">
+    <h2 class="section-title">// TERMS OF SERVICE</h2>
+    <div class="tos-book">
+      <div class="tos-head">
+        <span>COMMISSION ORDER TOS</span>
+        <small>Please read before you order</small>
+      </div>
+      <table class="tos-table">
+        <thead>
+          <tr><th scope="col">#</th><th scope="col">Rules</th><th scope="col">Details</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="tos-ore gold">1</span></td>
+          <th scope="row">Payment</th>
+          <td>Local clients: Purchases under 50k require full payment. Purchases above 50k require a 50% deposit. International clients: A 50% deposit or 100% full payment is required.</td>
+        </tr>
+        <tr>
+          <td><span class="tos-ore redstone">2</span></td>
+          <th scope="row">Revisions</th>
+          <td>Free revisions follow the package you choose (e.g., lighting adjust, minor pose tweaks). Extra revisions or changes after final render/animation export will incur an additional fee.</td>
+        </tr>
+        <tr>
+          <td><span class="tos-ore diamond">3</span></td>
+          <th scope="row">Asset & Models</th>
+          <td>Clients must provide valid Minecraft skins (128x128 / 512x512 / 64x64 PNG) or custom models (.obj/.bbmodel). If complex custom rigging, custom blocks, or special maps are required, additional charges or processing time may apply.</td>
+        </tr>
+        <tr>
+          <td><span class="tos-ore emerald">4</span></td>
+          <th scope="row">Deadlines</th>
+          <td>Delivery time starts once the down payment and all required assets (skins/maps) are received or Orders are placed into a queue and processed sequentially. Heavy animations, complex lighting (ray-tracing), 4K renders, or a long queue list may extend delivery time. Check the "Queue Status" link for your current position.</td>
+        </tr>
+        <tr>
+          <td><span class="tos-ore lapis">5</span></td>
+          <th scope="row">Changes & Storyboard Approval</th>
+          <td>Major changes to camera angles, animation keyframes, or scenery after the draft pose/storyboard preview is approved will be counted and charged as a new commission.</td>
+        </tr>
+        <tr>
+          <td><span class="tos-ore iron">6</span></td>
+          <th scope="row">Refunds</th>
+          <td>Refunds are only possible before work starts. Once work is in progress, the down payment (DP) is strictly non-refundable. If you paid in full upfront, a 50% partial refund of the total payment will be issued. A 100% full refund will be provided by the worker if they are unable to complete or take on your commission request.</td>
+        </tr>
+        <tr>
+          <td><span class="tos-ore iron">7</span></td>
+          <th scope="row">Usage &amp; Credit</th>
+          <td>All services already include commercial use rights. However, you are kindly requested to always give proper credit to the animator or render artist whenever you post or use the work.</td>
+        </tr>
+        <tr>
+          <td><span class="tos-ore coal">8</span></td>
+          <th scope="row">Content</th>
+          <td>I do not accept NSFW, hateful, political, or illegal content. I reserve the right to decline any commission request.</td>
+        </tr>
+        <tr>
+          <td><span class="tos-ore amethyst">9</span></td>
+          <th scope="row">Queue</th>
+          <td>Orders are processed in sequential queue order. You can check the "View Queue Status" link to see the current list and your placement..</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="tos-sign">
+        <b>AGREEMENT</b>
+        By placing an order, you agree to all the terms above.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="klien">
+  <div class="wrap">
+    <h2 class="section-title">// CLIENT</h2>
+    <div class="klien-grid">
+      <a class="klien-card" href="https://www.youtube.com/@Keicyla.Icelin" target="_blank" rel="noopener">
+        <img src="keyla.png" alt="Keicyla Icelin">
+        <div class="klien-name"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Keicyla Icelin</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@Akari_" target="_blank" rel="noopener">
+        <img src="Akarri_.png" alt="Akari_">
+        <div class="Akari_.png"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Akari_</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@Kazera12" target="_blank" rel="noopener">
+        <img src="Kzera.jpg" alt="Kazera">
+        <div class="kzera.jpg"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Kazera</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@JellyKukis" target="_blank" rel="noopener">
+        <img src="Jelly Kukis.png" alt="Jelly Kukis">
+        <div class="Jelly Kukis.png"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Jelly Kukis</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@KurisuYoura" target="_blank" rel="noopener">
+        <img src="Youra.jpg" alt="Youra">
+        <div class="Youra.jpg"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Youra</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@Mefelz" target="_blank" rel="noopener">
+        <img src="Mefelz.png" alt="Mefelz">
+        <div class="Mefelz.png"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Mefelz</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@michanangel" target="_blank" rel="noopener">
+        <img src="Michan Angel.png" alt="Michan Angel">
+        <div class="Michan Angel.png"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Michan Angel</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@Otodamshh" target="_blank" rel="noopener">
+        <img src="Otodamsh.jpg" alt="Otodamshh">
+        <div class="Otodamsh.jpg"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Otodamshh</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@SamsulCH" target="_blank" rel="noopener">
+        <img src="SamsulCH.png" alt="SamsulCH">
+        <div class="SamsulCH.png"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">SamsulCH</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@UrekanFaiz" target="_blank" rel="noopener">
+        <img src="Urekan Faiz.jpg" alt="Urekan Faiz">
+        <div class="Urekan Faiz.jpg"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Urekan Faiz</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/azrealon" target="_blank" rel="noopener">
+        <img src="Azre.png" alt="Azreleon">
+        <div class="Azre.png"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Azreleon</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@ShanonVyoma" target="_blank" rel="noopener">
+        <img src="ShanonVyoma.jpg" alt="Shanon Vyoma">
+        <div class="ShanonVyoma.jpg"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Shanon Vyoma</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@ShinonVyoma" target="_blank" rel="noopener">
+        <img src="ShinonVyoma.jpg" alt="Shinon Vyoma">
+        <div class="ShinonVyoma.jpg"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">Shinon Vyoma</span>
+      </a>
+      <a class="klien-card" href="https://www.youtube.com/@NightD24" target="_blank" rel="noopener">
+        <img src="NightD.jpg" alt="NightD">
+        <div class="NightD.jpg"><div class="icon"></div><span class="yt-badge"></span></div>
+        <span class="klien-name">NightD</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="sosial">
+  <div class="wrap">
+    <h2 class="section-title">// SOSIAL MEDIA</h2>
+    <div class="social-grid">
+      <a class="social-slot" href="https://www.instagram.com/renderin.minecraft/" target="_blank" rel="noopener">
+        <div class="slot-box"><div class="sicon ig"></div></div>
+        <span class="name">INSTAGRAM</span>
+      </a>
+      <a class="social-slot" href="https://www.tiktok.com/@setyawan_sg" target="_blank" rel="noopener">
+        <div class="slot-box"><div class="sicon tt"></div></div>
+        <span class="name">TIKTOK</span>
+      </a>
+      <a class="social-slot" href="https://www.youtube.com/@setyawang" target="_blank" rel="noopener">
+        <div class="slot-box"><div class="sicon yt"></div></div>
+        <span class="name">YOUTUBE</span>
+      </a>
+      <a class="social-slot" href="https://discord.com/invite/9UwsFx39Zs" target="_blank" rel="noopener">
+        <div class="slot-box"><div class="sicon dc"></div></div>
+        <span class="name">DISCORD</span>
+      </a>
+    </div>
+
+    <p class="contact-info">
+      <span class="contact-label">Business or collab:</span>
+      <a href="mailto:blablabla@gmail.com">blablabla@gmail.com</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <span class="pixel-font">Setyawan</span>
+  Thanks for visiting and supporting my work! Come back anytime for more creative projects.
+  <p class="copyright">© 2026 Setyawan. Semua hak dilindungi. Made by Keicyla Icelin.</p>
+</footer>
+
+<script>
+  const hotbarSlots = Array.from(document.querySelectorAll('.hotbar-slot'));
+  const targets = hotbarSlots.map(s => document.getElementById(s.dataset.target));
+  let navLockUntil = 0;
+
+  function setActive(id){
+    hotbarSlots.forEach(s => s.classList.toggle('active', s.dataset.target === id));
+  }
+  function updateActive(){
+    if (Date.now() < navLockUntil) return;
+    const line = window.innerHeight * 0.4;
+    let current = targets[0];
+    targets.forEach(t => { if (t && t.getBoundingClientRect().top <= line) current = t; });
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+      current = targets[targets.length - 1];
+    }
+    if (current) setActive(current.id);
+  }
+
+  hotbarSlots.forEach(slot => {
+    slot.addEventListener('click', (e) => {
+      const target = document.getElementById(slot.dataset.target);
+      if (!target) return;
+      e.preventDefault();
+      setActive(slot.dataset.target);
+      navLockUntil = Date.now() + 1200;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const fix = () => {
+        const off = target.getBoundingClientRect().top;
+        if (Math.abs(off) > 4) window.scrollTo({ top: window.scrollY + off, behavior: 'auto' });
+      };
+      setTimeout(fix, 900);
+      setTimeout(() => { fix(); navLockUntil = 0; updateActive(); }, 1500);
+    });
+  });
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { updateActive(); ticking = false; });
+  }, { passive: true });
+  window.addEventListener('resize', updateActive);
+  updateActive();
+
+  const bgMusic = document.getElementById('bgMusic');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const volumeSlider = document.getElementById('volumeSlider');
+  const toastToggle = document.getElementById('toastToggle');
+  const minimizeBtn = document.getElementById('minimizeBtn');
+  const musicToast = document.getElementById('musicToast');
+
+  bgMusic.volume = volumeSlider.value;
+
+  function tryAutoplay(){
+    const playPromise = bgMusic.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => { playPauseBtn.textContent = '❚❚'; })
+        .catch(() => {
+          const resume = () => {
+            bgMusic.play().then(() => { playPauseBtn.textContent = '❚❚'; }).catch(() => {});
+            document.removeEventListener('click', resume);
+            document.removeEventListener('keydown', resume);
+            document.removeEventListener('touchstart', resume);
+          };
+          document.addEventListener('click', resume, { once: true });
+          document.addEventListener('keydown', resume, { once: true });
+          document.addEventListener('touchstart', resume, { once: true });
+        });
+    }
+  }
+  tryAutoplay();
+
+  playPauseBtn.addEventListener('click', () => {
+    if (bgMusic.paused) {
+      bgMusic.play().catch(() => {
+        alert('No music file yet. Replace "musik-kamu.mp3" in the HTML code with your own music file.');
+      });
+      playPauseBtn.textContent = '❚❚';
+    } else {
+      bgMusic.pause();
+      playPauseBtn.textContent = '▶';
+    }
+  });
+
+  volumeSlider.addEventListener('input', (e) => {
+    bgMusic.volume = e.target.value;
+  });
+
+  toastToggle.addEventListener('click', () => {
+    musicToast.classList.remove('collapsed');
+  });
+  minimizeBtn.addEventListener('click', () => {
+    musicToast.classList.add('collapsed');
+  });
+
+  const regionBtns = document.querySelectorAll('.toggle-btn');
+  const regionPanels = document.querySelectorAll('.paket-grid[data-panel]');
+  regionBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const region = btn.dataset.region;
+      regionBtns.forEach(b => b.classList.toggle('active', b === btn));
+      regionPanels.forEach(p => {
+        p.style.display = (p.dataset.panel === region) ? 'grid' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
